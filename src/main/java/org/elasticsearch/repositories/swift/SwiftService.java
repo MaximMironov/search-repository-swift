@@ -33,10 +33,9 @@ public class SwiftService extends AbstractLifecycleComponent<SwiftService> {
             conf.setAuthenticationMethod(AuthenticationMethod.BASIC);
             swiftUser = new AccountFactory(conf).createAccount();
         } catch (CommandException ce) {
-        	throw new ElasticsearchIllegalArgumentException("Unknown host", ce);
+            throw new ElasticsearchIllegalArgumentException("Unable to authenticate to Swift", ce);
         }
-
-		return swiftUser;
+        return swiftUser;
     }
 
     @Override
