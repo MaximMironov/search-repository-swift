@@ -26,6 +26,10 @@ public class SwiftBlobStore extends AbstractComponent implements BlobStore {
         this.executor = executor;
 
         swift = auth.getContainer(container);
+        if (!swift.exists()) {
+            swift.create();
+            swift.makePublic();
+        }
 
         this.bufferSizeInBytes = (int) settings.getAsBytesSize("buffer_size", new ByteSizeValue(100, ByteSizeUnit.KB)).bytes();
     }
