@@ -9,6 +9,7 @@ import org.elasticsearch.common.unit.ByteSizeUnit;
 import org.elasticsearch.common.unit.ByteSizeValue;
 import org.javaswift.joss.model.Account;
 import org.javaswift.joss.model.Container;
+import org.javaswift.joss.model.StoredObject;
 
 import java.util.concurrent.Executor;
 
@@ -57,7 +58,10 @@ public class SwiftBlobStore extends AbstractComponent implements BlobStore {
         if (!keyPath.isEmpty()) {
             keyPath = keyPath + "/";
         }
-        swift().getObject(keyPath).delete();
+        StoredObject obj = swift().getObject(keyPath);
+        if (obj.exists()) {
+            obj.delete();
+        }
     }
 
     @Override
