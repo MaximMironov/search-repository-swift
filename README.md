@@ -27,7 +27,6 @@ See [Snapshot And Restore](http://www.elasticsearch.org/guide/en/elasticsearch/r
 |  Setting                            |   Description
 |-------------------------------------|------------------------------------------------------------
 | swift_url                          | Swift auth url. **Mandatory**
-| swift_tenantid                     | Swift tenant id
 | swift_username                     | Swift username
 | swift_password                     | Swift password
 | concurrent_streams                 | Throttles the number of streams (per node) preforming snapshot operation. Defaults to `5`
