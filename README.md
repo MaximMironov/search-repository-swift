@@ -15,7 +15,7 @@ In order to install the plugin, simply run: `bin/plugin -install com.github.demo
             "swift_url": "http://localhost:8080/auth/v1.0/",
             "swift_container": "my-container",
             "swift_username": "myuser",
-            "swift_username": "mypass!"
+            "swift_password": "mypass!"
         }
     }'
 ```
