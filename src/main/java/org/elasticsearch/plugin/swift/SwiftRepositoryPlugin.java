@@ -41,7 +41,8 @@ public class SwiftRepositoryPlugin extends AbstractPlugin {
     }
 
 	@Override
-    public Collection<Class<? extends LifecycleComponent>> services() {
+	@SuppressWarnings("rawtypes")
+	public Collection<Class<? extends LifecycleComponent>> services() {
         Collection<Class<? extends LifecycleComponent>> services = Lists.newArrayList();
         if (settings.getAsBoolean("swift.repository.enabled", true)) {
             services.add(SwiftService.class);

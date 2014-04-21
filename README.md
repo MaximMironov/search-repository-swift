@@ -33,3 +33,18 @@ See [Snapshot And Restore](http://www.elasticsearch.org/guide/en/elasticsearch/r
 | compress                           | Turns on compression of the snapshot files. Defaults to `true`.
 | max_restore_bytes_per_sec          | Throttles per node restore rate. Defaults to `20mb` per second.
 | max_snapshot_bytes_per_sec         | Throttles per node snapshot rate. Defaults to `20mb` per second.
+
+
+## To debug in Eclipse
+Since Swift has loggin dependencies you have to be careful about debugging in Eclipse.
+
+1.  Import this project into Eclipse using the maven connector.  Do no import the main Elasticsearch code.
+2.  Create a new java application debug configuration and set it to run ElasticsearchF.
+3.  Go to the Classpath tab
+4.  Click on Maven Dependiences
+5.  Click on Advanced
+6.  Click Add Folder
+7.  Click ok
+8.  Expand the tree to find <project-name>/src/test/resources
+9.  Click ok
+10. Click debug

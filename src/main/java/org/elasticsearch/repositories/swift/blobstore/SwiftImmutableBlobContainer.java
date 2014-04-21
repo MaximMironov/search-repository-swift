@@ -1,12 +1,12 @@
 package org.elasticsearch.repositories.swift.blobstore;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.elasticsearch.common.blobstore.BlobPath;
 import org.elasticsearch.common.blobstore.ImmutableBlobContainer;
 import org.elasticsearch.common.blobstore.support.BlobStores;
 import org.javaswift.joss.model.StoredObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 
 public class SwiftImmutableBlobContainer extends AbstractSwiftBlobContainer implements ImmutableBlobContainer {
