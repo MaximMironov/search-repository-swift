@@ -3,7 +3,7 @@ Swift repository plugin for Elasticsearch
 
 In order to install the plugin, simply run: `bin/plugin -install com.github.demon/elasticsearch-repository-swift/1.1.0`.
 
-|      GridFS Plugin          | elasticsearch         | Release date |
+|      Swift Plugin           | elasticsearch         | Release date |
 |-----------------------------|-----------------------|:------------:|
 | 1.0-SNAPSHOT (master)       | 1.1.0                 |              |
 
