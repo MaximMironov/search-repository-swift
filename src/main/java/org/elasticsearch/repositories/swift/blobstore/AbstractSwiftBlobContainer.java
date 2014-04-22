@@ -6,10 +6,13 @@ import org.elasticsearch.common.blobstore.BlobPath;
 import org.elasticsearch.common.blobstore.support.AbstractBlobContainer;
 import org.elasticsearch.common.blobstore.support.PlainBlobMetaData;
 import org.elasticsearch.common.collect.ImmutableMap;
+import org.javaswift.joss.model.Directory;
+import org.javaswift.joss.model.DirectoryOrObject;
 import org.javaswift.joss.model.StoredObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 
 
 public class AbstractSwiftBlobContainer extends AbstractBlobContainer {
@@ -79,10 +82,19 @@ public class AbstractSwiftBlobContainer extends AbstractBlobContainer {
     public ImmutableMap<String, BlobMetaData> listBlobsByPrefix(@Nullable String blobNamePrefix) throws IOException {
         ImmutableMap.Builder<String, BlobMetaData> blobsBuilder = ImmutableMap.builder();
 
-        
-        for (StoredObject object : blobStore.swift().list()) {
-        	String name = object.getName().substring(keyPath.length());
-        	blobsBuilder.put(name, new PlainBlobMetaData(name, object.getContentLength()));
+        Collection<DirectoryOrObject> files;
+        if (blobNamePrefix != null) {
+            files = blobStore.swift().listDirectory(new Directory(buildKey(blobNamePrefix), '/'));
+        } else {
+            files = blobStore.swift().listDirectory(new Directory(keyPath, '/'));
+        }
+         if (files != null && !files.isEmpty()) {
+            for (DirectoryOrObject object : files) {
+                if (object.isObject()) {
+                    String name = object.getName().substring(keyPath.length());
+                    blobsBuilder.put(name, new PlainBlobMetaData(name, object.getAsObject().getContentLength()));
+                }
+            }
         }
 
         return blobsBuilder.build();
