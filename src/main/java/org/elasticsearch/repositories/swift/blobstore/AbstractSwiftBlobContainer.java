@@ -14,14 +14,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
-
+/**
+ * Swift's implementation of the AbstractBlobContainer
+ */
 public class AbstractSwiftBlobContainer extends AbstractBlobContainer {
-
+	// Our local swift blob store instance
     protected final SwiftBlobStore blobStore;
 
+    // The root path for blobs. Used by buildKey to build full blob names
     protected final String keyPath;
 
-
+    /**
+     * Constructor
+     * @param path The BlobPath to find blobs in
+     * @param blobStore The blob store to use for operations
+     */
     protected AbstractSwiftBlobContainer(BlobPath path, SwiftBlobStore blobStore) {
         super(path);
         this.blobStore = blobStore;
@@ -32,11 +39,19 @@ public class AbstractSwiftBlobContainer extends AbstractBlobContainer {
         this.keyPath = keyPath;
     }
 
+    /**
+     * Does a blob exist? Self-explanatory.
+     */
     @Override
     public boolean blobExists(String blobName) {
     	return blobStore.swift().getObject(buildKey(blobName)).exists();
     }
 
+    /**
+     * Read a given blob into the listener
+     * @param blobName The blob name to read
+     * @param listener The listener to report our read info back to
+     */
     @Override
     public void readBlob(final String blobName, final ReadBlobListener listener) {
         blobStore.executor().execute(new Runnable() {
@@ -44,6 +59,8 @@ public class AbstractSwiftBlobContainer extends AbstractBlobContainer {
             public void run() {
                 InputStream is;
                 try {
+                	// This is the interesting bit. Fetch the blob and then turn it
+                	// into an InputStream for reading below
                     StoredObject object = blobStore.swift().getObject(buildKey(blobName));
                     is = object.downloadObjectAsInputStream();
                 } catch (Exception e) {
@@ -69,6 +86,10 @@ public class AbstractSwiftBlobContainer extends AbstractBlobContainer {
         });
     }
 
+    /**
+     * Delete a blob. Straightforward.
+     * @param blobName A blob to delete
+     */
     @Override
     public boolean deleteBlob(String blobName) throws IOException {
     	StoredObject object = blobStore.swift().getObject(buildKey(blobName));
@@ -78,6 +99,10 @@ public class AbstractSwiftBlobContainer extends AbstractBlobContainer {
         return true;
     }
 
+    /**
+     * Get the blobs matching a given prefix
+     * @param blobNamePrefix The prefix to look for blobs with
+     */
     @Override
     public ImmutableMap<String, BlobMetaData> listBlobsByPrefix(@Nullable String blobNamePrefix) throws IOException {
         ImmutableMap.Builder<String, BlobMetaData> blobsBuilder = ImmutableMap.builder();
@@ -88,7 +113,7 @@ public class AbstractSwiftBlobContainer extends AbstractBlobContainer {
         } else {
             files = blobStore.swift().listDirectory(new Directory(keyPath, '/'));
         }
-         if (files != null && !files.isEmpty()) {
+        if (files != null && !files.isEmpty()) {
             for (DirectoryOrObject object : files) {
                 if (object.isObject()) {
                     String name = object.getName().substring(keyPath.length());
@@ -100,11 +125,18 @@ public class AbstractSwiftBlobContainer extends AbstractBlobContainer {
         return blobsBuilder.build();
     }
 
+    /**
+     * Get all the blobs
+     */
     @Override
     public ImmutableMap<String, BlobMetaData> listBlobs() throws IOException {
         return listBlobsByPrefix(null);
     }
 
+    /**
+     * Build a key for a blob name, based on the keyPath
+     * @param blobName The blob name to build a key for
+     */
     protected String buildKey(String blobName) {
         return keyPath + blobName;
     }

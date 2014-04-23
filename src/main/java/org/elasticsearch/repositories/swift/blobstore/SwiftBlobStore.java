@@ -13,45 +13,72 @@ import org.javaswift.joss.model.StoredObject;
 
 import java.util.concurrent.Executor;
 
-
+/**
+ * Our blob store
+ */
 public class SwiftBlobStore extends AbstractComponent implements BlobStore {
-
+	// Executor for our operations. Sorta like a dedicated Thread pool.
     private final Executor executor;
 
+    // How much to buffer our blobs by
     private final int bufferSizeInBytes;
 
+    // Our Swift container. This is important.
     private final Container swift;
 
+    /**
+     * Constructor. Sets up the container mostly.
+     * @param settings Settings for our repository. Only care about buffer size.
+     * @param auth
+     * @param container
+     * @param executor
+     */
     public SwiftBlobStore(Settings settings, Account auth, String container, Executor executor) {
         super(settings);
         this.executor = executor;
+        this.bufferSizeInBytes = (int)settings.getAsBytesSize("buffer_size", new ByteSizeValue(100, ByteSizeUnit.KB)).bytes();
 
         swift = auth.getContainer(container);
         if (!swift.exists()) {
             swift.create();
             swift.makePublic();
         }
-
-        this.bufferSizeInBytes = (int) settings.getAsBytesSize("buffer_size", new ByteSizeValue(100, ByteSizeUnit.KB)).bytes();
     }
 
+    /**
+     * Get the container
+     */
     public Container swift() {
         return swift;
     }
 
+    /**
+     * Get the executor
+     */
     public Executor executor() {
         return executor;
     }
 
+    /**
+     * Get our buffer size
+     */
     public int bufferSizeInBytes() {
         return bufferSizeInBytes;
     }
 
+    /**
+     * Factory for getting blob containers for a path
+     * @param path The blob path to search
+     */
     @Override
     public ImmutableBlobContainer immutableBlobContainer(BlobPath path) {
         return new SwiftImmutableBlobContainer(path, this);
     }
 
+    /**
+     * Delete an arbitrary BlobPath from our store.
+     * @param path The blob path to delete
+     */
     @Override
     public void delete(BlobPath path) {
     	String keyPath = path.buildAsString("/");
@@ -64,6 +91,9 @@ public class SwiftBlobStore extends AbstractComponent implements BlobStore {
         }
     }
 
+    /**
+     * Close the store. No-op for us.
+     */
     @Override
     public void close() {
     }

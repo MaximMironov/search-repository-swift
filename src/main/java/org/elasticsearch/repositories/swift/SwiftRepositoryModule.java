@@ -6,14 +6,19 @@ import org.elasticsearch.index.snapshots.blobstore.BlobStoreIndexShardRepository
 import org.elasticsearch.repositories.Repository;
 
 /**
- * Swift repository module
+ * Swift repository module. Binds us to things.
  */
 public class SwiftRepositoryModule extends AbstractModule {
-
+	/**
+	 * Constructor. Super boring.
+	 */
     public SwiftRepositoryModule() {
         super();
     }
 
+    /**
+     * Do the binding.
+     */
     @Override
     protected void configure() {
         bind(Repository.class).to(SwiftRepository.class).asEagerSingleton();

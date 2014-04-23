@@ -15,24 +15,29 @@ import org.elasticsearch.repositories.blobstore.BlobStoreRepository;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
-
+/**
+ * The blob store repository. A glorified settings wrapper.
+ */
 public class SwiftRepository extends BlobStoreRepository {
-
+	// The internal "type" for Elasticsearch
     public final static String TYPE = "swift";
 
+    // Our blob store instance
     private final SwiftBlobStore blobStore;
 
+    // Base path for blobs
     private final BlobPath basePath;
 
+    // Chunk size.
     private ByteSizeValue chunkSize;
 
+    // Are we compressing our snapshots?
     private boolean compress;
-
 
     /**
      * Constructs new BlobStoreRepository
-     * @param name                 repository name
-     * @param repositorySettings   repository settings
+     * @param name repository name
+     * @param repositorySettings repository settings
      * @param indexShardRepository an instance of IndexShardRepository
      * @param swiftService an instance of SwiftService
      */
@@ -61,18 +66,24 @@ public class SwiftRepository extends BlobStoreRepository {
         this.basePath = BlobPath.cleanPath();
     }
 
+    /**
+     * Get the blob store
+     */
     @Override
     protected BlobStore blobStore() {
         return blobStore;
     }
 
+    /**
+     * Get the base blob path
+     */
     @Override
     protected BlobPath basePath() {
         return basePath;
     }
 
     /**
-     * {@inheritDoc}
+     * Get the chunk size
      */
     @Override
     protected ByteSizeValue chunkSize() {
@@ -80,7 +91,7 @@ public class SwiftRepository extends BlobStoreRepository {
     }
 
     /**
-     * {@inheritDoc}
+     * Are we compressing our snapshots?
      */
     @Override
     protected boolean isCompress() {

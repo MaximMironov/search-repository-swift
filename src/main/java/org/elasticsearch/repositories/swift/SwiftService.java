@@ -12,14 +12,24 @@ import org.javaswift.joss.exception.CommandException;
 import org.javaswift.joss.model.Account;
 
 public class SwiftService extends AbstractLifecycleComponent<SwiftService> {
-
+	// The account we'll be connecting to Swift with
     private Account swiftUser;
 
+    /**
+     * Constructor
+     * @param settings Settings for our repository. Injected.
+     */
     @Inject
     public SwiftService(Settings settings) {
         super(settings);
     }
 
+    /**
+     * Create a Swift account object and connect it to Swift
+     * @param url The auth url (eg: localhost:8080/auth/v1.0/)
+     * @param username The username
+     * @param password The password
+     */
     public synchronized Account swift(String url, String username, String password) {
         if (swiftUser != null) {
             return swiftUser;
@@ -38,16 +48,23 @@ public class SwiftService extends AbstractLifecycleComponent<SwiftService> {
         return swiftUser;
     }
 
+    /**
+     * Start the service. No-op here.
+     */
     @Override
     protected void doStart() throws ElasticsearchException {
-
     }
 
+    /**
+     * Stop the service. No-op here.
+     */
     @Override
     protected void doStop() throws ElasticsearchException {
-
     }
 
+    /**
+     * Close the service. No-op here.
+     */
     @Override
     protected void doClose() throws ElasticsearchException {
     }
