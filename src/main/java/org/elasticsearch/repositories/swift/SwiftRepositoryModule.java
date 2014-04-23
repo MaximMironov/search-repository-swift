@@ -23,5 +23,6 @@ public class SwiftRepositoryModule extends AbstractModule {
     protected void configure() {
         bind(Repository.class).to(SwiftRepository.class).asEagerSingleton();
         bind(IndexShardRepository.class).to(BlobStoreIndexShardRepository.class).asEagerSingleton();
+        bind(SwiftService.class).asEagerSingleton();
     }
 }
