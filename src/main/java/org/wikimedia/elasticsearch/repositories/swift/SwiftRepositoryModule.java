@@ -1,4 +1,4 @@
-package org.elasticsearch.repositories.swift;
+package org.wikimedia.elasticsearch.repositories.swift;
 
 import org.elasticsearch.common.inject.AbstractModule;
 import org.elasticsearch.index.snapshots.IndexShardRepository;

@@ -1,13 +1,13 @@
-package org.elasticsearch.plugin.swift;
+package org.wikimedia.elasticsearch;
 
 import org.elasticsearch.common.collect.Lists;
 import org.elasticsearch.common.component.LifecycleComponent;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.plugins.AbstractPlugin;
 import org.elasticsearch.repositories.RepositoriesModule;
-import org.elasticsearch.repositories.swift.SwiftRepository;
-import org.elasticsearch.repositories.swift.SwiftRepositoryModule;
-import org.elasticsearch.repositories.swift.SwiftService;
+import org.wikimedia.elasticsearch.repositories.swift.SwiftRepository;
+import org.wikimedia.elasticsearch.repositories.swift.SwiftRepositoryModule;
+import org.wikimedia.elasticsearch.repositories.swift.SwiftService;
 
 import java.util.Collection;
 
