@@ -1,4 +1,4 @@
-package org.wikimedia.elasticsearch.swift.repositories.swift.blobstore;
+package org.wikimedia.elasticsearch.swift.repositories.blobstore;
 
 import org.elasticsearch.common.blobstore.BlobPath;
 import org.elasticsearch.common.blobstore.BlobStore;

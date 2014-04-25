@@ -1,4 +1,4 @@
-package org.wikimedia.elasticsearch.swift.repositories.swift.blobstore;
+package org.wikimedia.elasticsearch.swift.repositories.blobstore;
 
 import org.elasticsearch.common.Nullable;
 import org.elasticsearch.common.blobstore.BlobMetaData;

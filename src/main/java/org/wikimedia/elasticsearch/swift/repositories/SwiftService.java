@@ -1,4 +1,4 @@
-package org.wikimedia.elasticsearch.swift.repositories.swift;
+package org.wikimedia.elasticsearch.swift.repositories;
 
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.ElasticsearchIllegalArgumentException;

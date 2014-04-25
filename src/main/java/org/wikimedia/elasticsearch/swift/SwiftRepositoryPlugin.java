@@ -5,9 +5,9 @@ import org.elasticsearch.common.component.LifecycleComponent;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.plugins.AbstractPlugin;
 import org.elasticsearch.repositories.RepositoriesModule;
-import org.wikimedia.elasticsearch.swift.repositories.swift.SwiftRepository;
-import org.wikimedia.elasticsearch.swift.repositories.swift.SwiftRepositoryModule;
-import org.wikimedia.elasticsearch.swift.repositories.swift.SwiftService;
+import org.wikimedia.elasticsearch.swift.repositories.SwiftRepository;
+import org.wikimedia.elasticsearch.swift.repositories.SwiftRepositoryModule;
+import org.wikimedia.elasticsearch.swift.repositories.SwiftService;
 
 import java.util.Collection;
 
