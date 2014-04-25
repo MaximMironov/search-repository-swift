@@ -1,4 +1,4 @@
-package org.wikimedia.elasticsearch.repositories.swift;
+package org.wikimedia.elasticsearch.swift.repositories.swift;
 
 import org.elasticsearch.common.blobstore.BlobPath;
 import org.elasticsearch.common.blobstore.BlobStore;
@@ -10,7 +10,7 @@ import org.elasticsearch.repositories.RepositoryException;
 import org.elasticsearch.repositories.RepositoryName;
 import org.elasticsearch.repositories.RepositorySettings;
 import org.elasticsearch.repositories.blobstore.BlobStoreRepository;
-import org.wikimedia.elasticsearch.repositories.swift.blobstore.SwiftBlobStore;
+import org.wikimedia.elasticsearch.swift.repositories.swift.blobstore.SwiftBlobStore;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
